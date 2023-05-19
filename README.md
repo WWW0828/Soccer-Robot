@@ -1,6 +1,6 @@
 # Soccer Robot With Bluetooth Controll
-Introduction to Embedding System Final Project
-collaborators: 徐祈，翁玉芯
+- Introduction to Embedding System Final Project
+- collaborators: 徐祈，翁玉芯
 
 ## AppConfig
 - App: CarBluetooth LR
