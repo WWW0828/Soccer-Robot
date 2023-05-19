@@ -8,9 +8,11 @@ const int dirPinA2 = 7;    // Direction control pin 2 for Motor A
 const int dirPinB1 = 8;    // Direction control pin 1 for Motor B
 const int dirPinB2 = 9;    // Direction control pin 2 for Motor B
 const int speed = 130;     // Speed of two motors, min:0, max: 255, but value exceed 200 would be the same as 200
+const int FORWARD = 0, BACKWARD = 1;
+// int carState = FORWARD;
 
 void forward() {
-  
+  // carState = FORWARD;
   analogWrite(speedPinA, speed);
   analogWrite(speedPinB, speed);
   
@@ -20,7 +22,28 @@ void forward() {
   digitalWrite(dirPinB2,LOW);
 }
 
+void forwardRight(){
+  analogWrite(speedPinA, speed);
+  analogWrite(speedPinB, speed * 1.3);
+
+  digitalWrite(dirPinA1,HIGH);
+  digitalWrite(dirPinA2,LOW);
+  digitalWrite(dirPinB1,HIGH);
+  digitalWrite(dirPinB2,LOW);  
+}
+
+void forwardLeft(){
+  analogWrite(speedPinA, speed * 1.3);
+  analogWrite(speedPinB, speed);
+
+  digitalWrite(dirPinA1,HIGH);
+  digitalWrite(dirPinA2,LOW);
+  digitalWrite(dirPinB1,HIGH);
+  digitalWrite(dirPinB2,LOW);  
+}
+
 void backward() {
+  // carState = BACKWARD;
   analogWrite(speedPinA, speed);
   analogWrite(speedPinB, speed);
 
@@ -30,7 +53,29 @@ void backward() {
   digitalWrite(dirPinB2,HIGH);
 }
 
-void turnRight() {
+void backwardRight(){
+  
+  analogWrite(speedPinA, speed * 1.3);
+  analogWrite(speedPinB, speed);
+
+  digitalWrite(dirPinA1,LOW);
+  digitalWrite(dirPinA2,HIGH);
+  digitalWrite(dirPinB1,LOW);
+  digitalWrite(dirPinB2,HIGH);
+}
+
+void backwardLeft(){
+  
+  analogWrite(speedPinA, speed);
+  analogWrite(speedPinB, speed * 1.3);
+
+  digitalWrite(dirPinA1,LOW);
+  digitalWrite(dirPinA2,HIGH);
+  digitalWrite(dirPinB1,LOW);
+  digitalWrite(dirPinB2,HIGH);
+}
+
+void turnLeft() {
 
   analogWrite(speedPinA, speed);
   analogWrite(speedPinB, 0);
@@ -41,7 +86,7 @@ void turnRight() {
   digitalWrite(dirPinB2,LOW);
 }
 
-void turnLeft() {
+void turnRight() {
   
   analogWrite(speedPinA, 0);
   analogWrite(speedPinB, speed);
@@ -78,7 +123,7 @@ void setup()
   // Bluetooth
   Serial.begin(9600);
   BT.begin(9600);
-  Serial.println("Bluetooth is ready");
+  // Serial.println("Bluetooth is ready");
   
   // motor
   pinMode(speedPinA, OUTPUT);
@@ -90,33 +135,44 @@ void setup()
 }
 void loop()
 {
-    while(BT.available()) {
-      delay(3);
+    if(BT.available()) {
+      // delay(3);
       char ch = BT.read();
-      // Serial.println(ch);
+      Serial.print(ch);
       switch (ch)
       {
-          case 'f':
+          case 'F':
               forward();
-              delay(50);
               break;
-          case 'b':
+          case 'B':
               backward();
-              delay(50);
               break;
-          case 'l':
-              turnRight();
-              delay(50);
-              break;
-          case 'r':
+          case 'L':
               turnLeft();
-              delay(50);
               break;
-          
-          default:
+          case 'R':
+              turnRight();
+              break;
+          case 'S':
               stop();
               break;
+          case 'I':
+              forwardRight();
+              break;
+          case 'G':
+              forwardLeft();
+              break;
+          case 'J':
+              backwardRight();
+              break;
+          case 'H':
+              backwardLeft();
+              break;
+          default:
+              // stop();
+              break;
       }
-      stop();
     }
+    delay(100);
+
 }

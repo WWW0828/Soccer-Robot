@@ -10,8 +10,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   while(BT.available()) {
-    delay(3);
+    // delay(3);
     char ch = BT.read();
-    Serial.println(ch);
+    Serial.print(ch);
   }
 }
