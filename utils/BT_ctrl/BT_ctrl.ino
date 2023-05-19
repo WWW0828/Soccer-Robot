@@ -1,20 +1,19 @@
 #include <SoftwareSerial.h>
 SoftwareSerial BT(0, 1);
 
-const int speedPinA = 5;  // Speed control pin for Motor A
-const int speedPinB = 10;  // Speed control pin for Motor B
+const int speedPinR = 5;  // Speed control pin for Motor R
+const int speedPinL = 10;  // Speed control pin for Motor B
 const int dirPinA1 = 6;    // Direction control pin 1 for Motor A
 const int dirPinA2 = 7;    // Direction control pin 2 for Motor A
 const int dirPinB1 = 8;    // Direction control pin 1 for Motor B
 const int dirPinB2 = 9;    // Direction control pin 2 for Motor B
-const int speed = 130;     // Speed of two motors, min:0, max: 255, but value exceed 200 would be the same as 200
-const int FORWARD = 0, BACKWARD = 1;
-// int carState = FORWARD;
+// const int speed = 130;     // Speed of two motors, min:0, max: 255, but value exceed 200 would be the same as 200
+const int Lspeed = 138; // adjust: left motor is slower, so we force it to run faster
+const int Rspeed = 130; 
 
 void forward() {
-  // carState = FORWARD;
-  analogWrite(speedPinA, speed);
-  analogWrite(speedPinB, speed);
+  analogWrite(speedPinR, Rspeed);
+  analogWrite(speedPinL, Lspeed);
   
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
@@ -23,8 +22,8 @@ void forward() {
 }
 
 void forwardRight(){
-  analogWrite(speedPinA, speed);
-  analogWrite(speedPinB, speed * 1.3);
+  analogWrite(speedPinR, Rspeed);
+  analogWrite(speedPinL, Lspeed * 1.4);
 
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
@@ -33,8 +32,8 @@ void forwardRight(){
 }
 
 void forwardLeft(){
-  analogWrite(speedPinA, speed * 1.3);
-  analogWrite(speedPinB, speed);
+  analogWrite(speedPinR, Rspeed * 1.4);
+  analogWrite(speedPinL, Lspeed);
 
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
@@ -44,8 +43,8 @@ void forwardLeft(){
 
 void backward() {
   // carState = BACKWARD;
-  analogWrite(speedPinA, speed);
-  analogWrite(speedPinB, speed);
+  analogWrite(speedPinR, Rspeed);
+  analogWrite(speedPinL, Lspeed);
 
   digitalWrite(dirPinA1,LOW);
   digitalWrite(dirPinA2,HIGH);
@@ -55,8 +54,8 @@ void backward() {
 
 void backwardRight(){
   
-  analogWrite(speedPinA, speed * 1.3);
-  analogWrite(speedPinB, speed);
+  analogWrite(speedPinR, Rspeed * 1.4);
+  analogWrite(speedPinL, Lspeed);
 
   digitalWrite(dirPinA1,LOW);
   digitalWrite(dirPinA2,HIGH);
@@ -66,8 +65,8 @@ void backwardRight(){
 
 void backwardLeft(){
   
-  analogWrite(speedPinA, speed);
-  analogWrite(speedPinB, speed * 1.3);
+  analogWrite(speedPinR, Rspeed);
+  analogWrite(speedPinL, Lspeed * 1.4);
 
   digitalWrite(dirPinA1,LOW);
   digitalWrite(dirPinA2,HIGH);
@@ -77,8 +76,8 @@ void backwardLeft(){
 
 void turnLeft() {
 
-  analogWrite(speedPinA, speed);
-  analogWrite(speedPinB, 0);
+  analogWrite(speedPinR, Rspeed);
+  analogWrite(speedPinL, 0);
   
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
@@ -88,8 +87,8 @@ void turnLeft() {
 
 void turnRight() {
   
-  analogWrite(speedPinA, 0);
-  analogWrite(speedPinB, speed);
+  analogWrite(speedPinR, 0);
+  analogWrite(speedPinL, Lspeed);
 
   digitalWrite(dirPinA1,LOW);
   digitalWrite(dirPinA2,LOW);
@@ -98,8 +97,8 @@ void turnRight() {
 } 
 void circle() { 
   
-  analogWrite(speedPinA, speed);
-  analogWrite(speedPinB, speed);
+  analogWrite(speedPinR, Rspeed);
+  analogWrite(speedPinL, Lspeed);
 
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
@@ -109,8 +108,8 @@ void circle() {
  
 void stop() {
 
-  analogWrite(speedPinA, 0);
-  analogWrite(speedPinB, 0);
+  analogWrite(speedPinR, 0);
+  analogWrite(speedPinL, 0);
   
   digitalWrite(dirPinA1,LOW);
   digitalWrite(dirPinA2,LOW);
@@ -126,8 +125,8 @@ void setup()
   // Serial.println("Bluetooth is ready");
   
   // motor
-  pinMode(speedPinA, OUTPUT);
-  pinMode(speedPinB, OUTPUT);
+  pinMode(speedPinR, OUTPUT);
+  pinMode(speedPinL, OUTPUT);
   pinMode(dirPinA1, OUTPUT);
   pinMode(dirPinA2, OUTPUT);
   pinMode(dirPinB1, OUTPUT);
