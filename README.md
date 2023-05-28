@@ -30,3 +30,7 @@ backward + left: 'H'
 - batteries shell: 9.2 cm * 4.4 cm
 - arduino whole: 4 cm * 5.5 cm
 - motor driver whole: 4.4 cm * 4.4 cm
+
+## Pictures
+![](https://hackmd.io/_uploads/HyDhZDxL2.jpg)
+
