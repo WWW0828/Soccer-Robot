@@ -8,8 +8,8 @@ const int dirPinA2 = 6;     // Direction control pin 2 for Motor A
 const int dirPinB1 = 9;     // Direction control pin 1 for Motor B
 const int dirPinB2 = 8;     // Direction control pin 2 for Motor B
 // const int speed = 130;   // Speed of two motors, min:0, max: 255, but value exceed 200 would be the same as 200
-const int Lspeed = 130 * 0.8; 
-const int Rspeed = 138 * 0.8;     // adjust: right motor is slower, so we force it to run faster
+const int Lspeed = 130 * 1.5; 
+const int Rspeed = 138 * 1.5;     // adjust: right motor is slower, so we force it to run faster
 
 void forward() {
   analogWrite(speedPinR, Rspeed);
@@ -22,8 +22,8 @@ void forward() {
 }
 
 void forwardRight(){
-  analogWrite(speedPinR, Rspeed);
-  analogWrite(speedPinL, Lspeed * 1.8);
+  analogWrite(speedPinR, Rspeed * 1.8);
+  analogWrite(speedPinL, Lspeed);
 
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
@@ -32,8 +32,8 @@ void forwardRight(){
 }
 
 void forwardLeft(){
-  analogWrite(speedPinR, Rspeed * 1.8);
-  analogWrite(speedPinL, Lspeed);
+  analogWrite(speedPinR, Rspeed);
+  analogWrite(speedPinL, Lspeed * 1.8);
 
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
@@ -54,8 +54,8 @@ void backward() {
 
 void backwardRight(){
   
-  analogWrite(speedPinR, Rspeed);
-  analogWrite(speedPinL, Lspeed * 1.8);
+  analogWrite(speedPinR, Rspeed * 1.8);
+  analogWrite(speedPinL, Lspeed);
 
   digitalWrite(dirPinA1,LOW);
   digitalWrite(dirPinA2,HIGH);
@@ -65,8 +65,8 @@ void backwardRight(){
 
 void backwardLeft(){
   
-  analogWrite(speedPinR, Rspeed * 1.8);
-  analogWrite(speedPinL, Lspeed);
+  analogWrite(speedPinR, Rspeed);
+  analogWrite(speedPinL, Lspeed * 1.8);
 
   digitalWrite(dirPinA1,LOW);
   digitalWrite(dirPinA2,HIGH);
