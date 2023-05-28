@@ -1,15 +1,15 @@
 #include <SoftwareSerial.h>
 SoftwareSerial BT(0, 1);
 
-const int speedPinR = 5;  // Speed control pin for Motor R
-const int speedPinL = 10;  // Speed control pin for Motor B
-const int dirPinA1 = 6;    // Direction control pin 1 for Motor A
-const int dirPinA2 = 7;    // Direction control pin 2 for Motor A
-const int dirPinB1 = 8;    // Direction control pin 1 for Motor B
-const int dirPinB2 = 9;    // Direction control pin 2 for Motor B
-// const int speed = 130;     // Speed of two motors, min:0, max: 255, but value exceed 200 would be the same as 200
-const int Lspeed = 138; // adjust: left motor is slower, so we force it to run faster
-const int Rspeed = 130; 
+const int speedPinR = 5;    // Speed control pin for Motor R
+const int speedPinL = 10;   // Speed control pin for Motor B
+const int dirPinA1 = 7;     // Direction control pin 1 for Motor A
+const int dirPinA2 = 6;     // Direction control pin 2 for Motor A
+const int dirPinB1 = 9;     // Direction control pin 1 for Motor B
+const int dirPinB2 = 8;     // Direction control pin 2 for Motor B
+// const int speed = 130;   // Speed of two motors, min:0, max: 255, but value exceed 200 would be the same as 200
+const int Lspeed = 130; 
+const int Rspeed = 138;     // adjust: right motor is slower, so we force it to run faster
 
 void forward() {
   analogWrite(speedPinR, Rspeed);
@@ -28,7 +28,7 @@ void forwardRight(){
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
   digitalWrite(dirPinB1,HIGH);
-  digitalWrite(dirPinB2,LOW);  
+  digitalWrite(dirPinB2,LOW);
 }
 
 void forwardLeft(){
@@ -38,7 +38,7 @@ void forwardLeft(){
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
   digitalWrite(dirPinB1,HIGH);
-  digitalWrite(dirPinB2,LOW);  
+  digitalWrite(dirPinB2,LOW);
 }
 
 void backward() {
@@ -54,17 +54,6 @@ void backward() {
 
 void backwardRight(){
   
-  analogWrite(speedPinR, Rspeed * 1.4);
-  analogWrite(speedPinL, Lspeed);
-
-  digitalWrite(dirPinA1,LOW);
-  digitalWrite(dirPinA2,HIGH);
-  digitalWrite(dirPinB1,LOW);
-  digitalWrite(dirPinB2,HIGH);
-}
-
-void backwardLeft(){
-  
   analogWrite(speedPinR, Rspeed);
   analogWrite(speedPinL, Lspeed * 1.4);
 
@@ -74,10 +63,21 @@ void backwardLeft(){
   digitalWrite(dirPinB2,HIGH);
 }
 
+void backwardLeft(){
+  
+  analogWrite(speedPinR, Rspeed * 1.4);
+  analogWrite(speedPinL, Lspeed);
+
+  digitalWrite(dirPinA1,LOW);
+  digitalWrite(dirPinA2,HIGH);
+  digitalWrite(dirPinB1,LOW);
+  digitalWrite(dirPinB2,HIGH);
+}
+
 void turnLeft() {
 
-  analogWrite(speedPinR, Rspeed);
   analogWrite(speedPinL, 0);
+  analogWrite(speedPinR, Rspeed);
   
   digitalWrite(dirPinA1,HIGH);
   digitalWrite(dirPinA2,LOW);
@@ -87,8 +87,8 @@ void turnLeft() {
 
 void turnRight() {
   
-  analogWrite(speedPinR, 0);
   analogWrite(speedPinL, Lspeed);
+  analogWrite(speedPinR, 0);
 
   digitalWrite(dirPinA1,LOW);
   digitalWrite(dirPinA2,LOW);
